@@ -5,6 +5,13 @@ RUN apk add --no-cache $PHPIZE_DEPS git unzip libpq-dev \
 
 WORKDIR /var/www
 
-EXPOSE 9000
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+COPY composer.json composer.lock* ./
+
+RUN composer install --no-interaction --no-dev --prefer-dist --no-progress
+
+COPY . .
+
+EXPOSE 9000
 CMD ["php-fpm", "-F"]
