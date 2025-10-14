@@ -3,6 +3,8 @@
         "slim/slim": "^4.10",
         "slim/psr7": "^1.5",
         "monolog/monolog": "^3.0",
-        "nyholm/psr7": "^1.5"
+        "nyholm/psr7": "^1.5",
+        "doctrine/dbal": "^3.8",
+        "vlucas/phpdotenv": "^5.6"
     }
 }

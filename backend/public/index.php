@@ -1,9 +1,5 @@
 <?php
 
-	// Testing:
-	// php -S localhost:8080 -t public
-	// http://localhost:8080/api/ping
-
 	declare( strict_types = 1);
 	
 	use Slim\Factory\AppFactory;
