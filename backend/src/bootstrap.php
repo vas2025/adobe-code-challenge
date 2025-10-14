@@ -5,7 +5,10 @@
 	use Slim\App;
 	use Doctrine\DBAL\DriverManager;
 	use Dotenv\Dotenv;
+	use Slim\Routing\RouteCollectorProxy;
 	use App\Controllers\BooksController;
+	use App\Controllers\AuthController;
+	use App\Middleware\JwtMiddleware;
 
 	return function ( App $app )
 	{
@@ -27,48 +30,22 @@
 		];
 		
 		$connection = DriverManager::getConnection($connectionParams);
-		
-		// Test route
-		$app->get( '/api/ping' , function ( $request , $response ) use ($connection) {
-			
-			try
-			{
-				
-				$connection->executeQuery( 'SELECT 1' );
-				$response->getBody()->write(
-					json_encode(
-						[
-							'pong' => true,
-							'db'   => 'ok'
-						]
-					)
-				);
-				
-			} catch (\Throwable $e) {
-				
-				$response->getBody()->write(
-					json_encode(
-						[
-							'pong' => true,
-							'db'   => 'error',
-							'msg'  => $e->getMessage()
-						]
-					)
-				);
 
-			}
-			
-			return $response->withHeader( 'Content-Type', 'application/json' );
-			
-		});
+		// AUTH routes
+		$authController = new AuthController( $connection , $_ENV[ 'JWT_SECRET' ] );
+		$app->post( '/api/auth/register', [ $authController , 'register' ] );
+		$app->post( '/api/auth/login',    [ $authController , 'login' ] );
 		
 		// CRUD routes
-		
 		$booksController = new BooksController($connection);
+		$jwtMiddleware   = new JwtMiddleware($_ENV['JWT_SECRET']);
 
-		$app->get(    '/api/books' ,      [ $booksController , 'list'   ] );
-		$app->get(    '/api/books/{id}' , [ $booksController , 'get'    ] );
-		$app->post(   '/api/books' , 	 [ $booksController , 'create' ] );
-		$app->put( 	  '/api/books/{id}' , [ $booksController , 'update' ] );
-		$app->delete( '/api/books/{id}' , [ $booksController , 'delete' ] );
+		$app->group( '/api/books' , function ( RouteCollectorProxy $group ) use ( $booksController ) {
+			$group->get(    ''      , [ $booksController , 'list'   ] );
+			$group->get(    '/{id}' , [ $booksController , 'get'    ] );
+			$group->post(   ''      , [ $booksController , 'create' ] );
+			$group->put(    '/{id}' , [ $booksController , 'update' ] );
+			$group->delete( '/{id}' , [ $booksController , 'delete' ] );
+		})->add( $jwtMiddleware );		
+		
 	};
