@@ -9,12 +9,24 @@
 	use App\Controllers\BooksController;
 	use App\Controllers\AuthController;
 	use App\Middleware\JwtMiddleware;
+	use App\Middleware\RateLimitMiddleware;
+	use Predis\Client as RedisClient;
 
 	return function ( App $app )
 	{
 		// Initializing .env
 		$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 		$dotenv->load();
+		
+		// Initializing Redis
+		$redis = new RedisClient([
+			'scheme' => 'tcp',
+			'host' => $_ENV['REDIS_HOST'] ?? '127.0.0.1',
+			'port' => $_ENV['REDIS_PORT'] ?? 6379,
+		]);
+
+		// Adding rate limiter globally for all requests
+		$app->add( new RateLimitMiddleware( $redis , 100 , 60 ) );
 	
 		// Middleware for JSON
 		$app->addBodyParsingMiddleware();
