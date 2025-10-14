@@ -5,6 +5,7 @@
 	use Slim\App;
 	use Doctrine\DBAL\DriverManager;
 	use Dotenv\Dotenv;
+	use App\Controllers\BooksController;
 
 	return function ( App $app )
 	{
@@ -27,8 +28,6 @@
 		
 		$connection = DriverManager::getConnection($connectionParams);
 		
-		var_dump($connection);
-
 		// Test route
 		$app->get( '/api/ping' , function ( $request , $response ) use ($connection) {
 			
@@ -62,4 +61,14 @@
 			return $response->withHeader( 'Content-Type', 'application/json' );
 			
 		});
+		
+		// CRUD routes
+		
+		$booksController = new BooksController($connection);
+
+		$app->get(    '/api/books' ,      [ $booksController , 'list'   ] );
+		$app->get(    '/api/books/{id}' , [ $booksController , 'get'    ] );
+		$app->post(   '/api/books' , 	 [ $booksController , 'create' ] );
+		$app->put( 	  '/api/books/{id}' , [ $booksController , 'update' ] );
+		$app->delete( '/api/books/{id}' , [ $booksController , 'delete' ] );
 	};
