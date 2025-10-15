@@ -28,9 +28,7 @@ sudo docker compose up -d
 - Phase 2: Backend server API (PHP, JWT, rate limiting)
 - Phase 3: Frontend (React + TS), authentication and CRUD UI
 - Phase 4: Docker + docker-compose
-- Phase 5: Helm + Kubernetes
-- Phase 6: CI/CD (GitHub Actions)
-- Phase 7: AWS Deploy (EKS) + README/Swagger
+- Phase 5: AWS Deploy (Lightsail)
 
 ## 🧩 API Manual
 All responses are returned in JSON format.  
