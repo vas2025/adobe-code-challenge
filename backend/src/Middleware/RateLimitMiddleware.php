@@ -28,8 +28,8 @@
 		public function __invoke( ServerRequestInterface $req , RequestHandlerInterface $handler ): ResponseInterface
 		{
 			$ip = $req->getServerParams()[ 'REMOTE_ADDR' ] ?? 'unknown';
-			$key = "rate:$ip";
-			$current = (int) $this->redis->get($key);
+			$key = "rate:" . $this->getIdentifier( $req );
+			$current = (int) $this->redis->get( $key );
 
 			if( $current === 0 )
 			{
