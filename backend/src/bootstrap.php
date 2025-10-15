@@ -11,12 +11,18 @@
 	use App\Middleware\JwtMiddleware;
 	use App\Middleware\RateLimitMiddleware;
 	use Predis\Client as RedisClient;
+	use Monolog\Logger;
+	use Monolog\Handler\StreamHandler;
 
 	return function ( App $app )
 	{
 		// Initializing .env
 		$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 		$dotenv->load();
+
+		// Initializing Logger
+		$logger = new Logger( 'app' );
+		$logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::DEBUG));
 		
 		// CORS Middleware
 		$app->add( function ( $request , $handler ) {
@@ -71,7 +77,7 @@
 		$app->post( '/api/auth/login',    [ $authController , 'login' ] );
 		
 		// CRUD routes
-		$booksController = new BooksController($connection);
+		$booksController = new BooksController( $connection );
 		$jwtMiddleware   = new JwtMiddleware($_ENV['JWT_SECRET']);
 
 		$app->group( '/api/books' , function ( RouteCollectorProxy $group ) use ( $booksController ) {
