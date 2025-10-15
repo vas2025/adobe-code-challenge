@@ -13,7 +13,9 @@ RUN composer install --no-interaction --no-dev --prefer-dist --no-progress
 
 COPY . .
 
-COPY backend/.env backend/.env.example
+RUN if [ ! -f ./backend/.env ]; then \
+      cp ./backend/.env.example ./backend/.env; \
+    fi
 
 EXPOSE 9000
 CMD ["php-fpm", "-F"]
