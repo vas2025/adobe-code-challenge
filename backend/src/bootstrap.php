@@ -81,4 +81,47 @@
 			$group->delete( '/{id}' , [ $booksController , 'delete' ] );
 		})->add( $jwtMiddleware );		
 		
+		// Default / Root route
+		$app->get( '/' , function ( $request , $response ) {
+			$response->getBody()->write(
+				json_encode([
+					'status'  => 'ok',
+					'message' => 'Backend API is running'
+				])
+			);
+			
+			return $response
+				->withHeader('Content-Type', 'application/json')
+				->withStatus(200);
+		});
+
+		// API root route
+		$app->get( '/api' , function ( $request , $response ) {
+			$response->getBody()->write(
+				json_encode([
+					'status'  => 'ok',
+					'message' => 'Welcome to Adobe Code Challenge API'
+				])
+			);
+			
+			return $response
+				->withHeader( 'Content-Type' , 'application/json' )
+				->withStatus(200);
+		});
+
+		// 404 fallback handler
+		$app->map( [ 'GET' , 'POST' , 'PUT' , 'DELETE' , 'PATCH' , 'OPTIONS' ] , '/{routes:.+}' , function ( $request , $response ) {
+			$response->getBody()->write(
+				json_encode([
+					'error'   => 'Not found',
+					'path'    => (string) $request->getUri()->getPath(),
+					'method'  => $request->getMethod(),
+				])
+			);
+			
+			return $response
+				->withHeader( 'Content-Type' , 'application/json' )
+				->withStatus(404);
+		});
+		
 	};
