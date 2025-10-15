@@ -77,7 +77,7 @@
 		$app->post( '/api/auth/login',    [ $authController , 'login' ] );
 		
 		// CRUD routes
-		$booksController = new BooksController( $connection , logger );
+		$booksController = new BooksController( $connection , $logger );
 		$jwtMiddleware   = new JwtMiddleware( $_ENV['JWT_SECRET' ] );
 
 		$app->group( '/api/books' , function ( RouteCollectorProxy $group ) use ( $booksController ) {
