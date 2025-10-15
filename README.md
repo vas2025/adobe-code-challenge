@@ -3,9 +3,9 @@
 - Build a containerized web app (fictions CRUD operations) and deploy on cloud (AWS/Azure/GCP)
 - Design and implement an API server with authentication and rate limiting capabilities 
 
-## Live Demo (AWS Lightsail)
+## ▶️ Live Demo (AWS Lightsail)
  - UI: [http://54.191.5.188/](http://54.191.5.188/)
-API: [http://54.191.5.188:8080](http://54.191.5.188:8080)
+ - API: [http://54.191.5.188:8080](http://54.191.5.188:8080)
 
 Containerized PHP Slim 4 API with JWT authentication and Redis rate limiting. 
 Deployed on AWS Lightsail via Docker Compose
@@ -23,7 +23,7 @@ sudo docker compose up -d
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 - Phase 1: Repository, base structure, initial commit
 - Phase 2: Backend server API (PHP, JWT, rate limiting)
 - Phase 3: Frontend (React + TS), authentication and CRUD UI
