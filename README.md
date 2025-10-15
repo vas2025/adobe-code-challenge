@@ -4,11 +4,24 @@
 - Design and implement an API server with authentication and rate limiting capabilities 
 
 ## Live Demo (AWS Lightsail)
-UI: http://54.191.5.188/
-API: http://54.191.5.188:8080
+ - UI: [http://54.191.5.188/](http://54.191.5.188/)
+API: [http://54.191.5.188:8080](http://54.191.5.188:8080)
 
 Containerized PHP Slim 4 API with JWT authentication and Redis rate limiting. 
 Deployed on AWS Lightsail via Docker Compose
+
+---
+
+## 📦 Example Setup
+
+```bash
+git clone https://github.com/vas2025/adobe-code-challenge.git
+cd adobe-code-challenge
+sudo docker compose build
+sudo docker compose up -d
+```
+
+---
 
 ## Roadmap
 - Phase 1: Repository, base structure, initial commit
@@ -20,11 +33,6 @@ Deployed on AWS Lightsail via Docker Compose
 - Phase 7: AWS Deploy (EKS) + README/Swagger
 
 ## 🧩 API Manual
-
-### Base URL
-> **Production (AWS Lightsail)**  
-> `http://54.191.5.188:8080`
-
 All responses are returned in JSON format.  
 Authentication uses **JWT Bearer tokens** returned on login.
 
@@ -268,18 +276,3 @@ HTTP Status: `429 Too Many Requests`
 | Frontend | React (TypeScript + Ant Design) |
 | Containerization | Docker Compose (Nginx, PHP-FPM, Postgres, Redis, Frontend) |
 | Cloud | AWS Lightsail (Ubuntu 22.04) |
-
----
-
-## 📦 Example Setup
-
-```bash
-git clone https://github.com/vas2025/adobe-code-challenge.git
-cd adobe-code-challenge
-cp backend/.env.example backend/.env
-sudo docker compose build
-sudo docker compose up -d
-```
-
-**Live Demo:**  
-👉 [http://34.222.6.79:8080](http://34.222.6.79:8080)
