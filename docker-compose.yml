@@ -6,8 +6,6 @@ services:
       context: ./backend
     container_name: adobe_php
     restart: unless-stopped
-    env_file:
-      - ./backend/.env
     volumes:
       - ./backend:/var/www
     depends_on:
