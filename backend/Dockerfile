@@ -14,4 +14,6 @@ COPY . .
 
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
+RUN mkdir -p /var/www/logs && chmod 777 /var/www/logs
+
 CMD ["sh", "-c", "if [ ! -d vendor ]; then composer install --no-interaction --no-dev --prefer-dist; fi && if [ ! -f .env ]; then cp .env.example .env; fi && php-fpm -F"]
