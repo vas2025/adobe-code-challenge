@@ -1,4 +1,7 @@
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE =
+  window.location.origin.includes('localhost')
+    ? 'http://localhost:8080/api'
+    : `${window.location.origin.replace(/\/$/, '')}:8080/api`;
 
 export async function apiFetch(path: string, options: RequestInit = {}) {
   const token = localStorage.getItem('token');
