@@ -18,11 +18,26 @@
 		$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 		$dotenv->load();
 		
+		// CORS Middleware
+		$app->add( function ( $request , $handler ) {
+			$response = $handler->handle( $request );
+			return $response
+				->withHeader( 'Access-Control-Allow-Origin'  , 'http://localhost' )
+				->withHeader( 'Access-Control-Allow-Headers' , 'X-Requested-With, Content-Type, Accept, Origin, Authorization' )
+				->withHeader( 'Access-Control-Allow-Methods' , 'GET, POST, PUT, DELETE, OPTIONS' )
+				->withHeader( 'Access-Control-Allow-Credentials' , 'true' );
+		});
+
+		// Allow preflight requests (OPTIONS)
+		$app->options( '/{routes:.+}' , function ( $request , $response ) {
+			return $response;
+		});
+		
 		// Initializing Redis
 		$redis = new RedisClient([
 			'scheme' => 'tcp',
-			'host' => $_ENV['REDIS_HOST'] ?? '127.0.0.1',
-			'port' => $_ENV['REDIS_PORT'] ?? 6379,
+			'host' => $_ENV[ 'REDIS_HOST' ] ?? '127.0.0.1',
+			'port' => $_ENV[ 'REDIS_PORT' ] ?? 6379,
 		]);
 
 		// Adding rate limiter globally for all requests
