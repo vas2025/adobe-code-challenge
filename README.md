@@ -1,10 +1,11 @@
 # Adobe Code Challenge
 
-a. Build a containerized web app (fictions CRUD operations) and deploy on cloud (AWS/Azure/GCP)
-b. Design and implement an API server with authentication and rate limiting capabilities 
+- Build a containerized web app (fictions CRUD operations) and deploy on cloud (AWS/Azure/GCP)
+- Design and implement an API server with authentication and rate limiting capabilities 
 
 ## Live Demo (AWS Lightsail)
-http://34.222.6.79:8080/api/ping  
+UI: http://54.191.5.188/
+API: http://54.191.5.188:8080
 
 Containerized PHP Slim 4 API with JWT authentication and Redis rate limiting. 
 Deployed on AWS Lightsail via Docker Compose
@@ -22,7 +23,7 @@ Deployed on AWS Lightsail via Docker Compose
 
 ### Base URL
 > **Production (AWS Lightsail)**  
-> `http://34.222.6.79:8080`
+> `http://54.191.5.188:8080`
 
 All responses are returned in JSON format.  
 Authentication uses **JWT Bearer tokens** returned on login.
@@ -100,6 +101,11 @@ Authorization: Bearer <JWT_TOKEN>
 ]
 ```
 
+**CURL**
+```bash
+curl -X GET http://54.191.5.188:8080/api/books -H "Content-Type: application/json"   -H "Authorization: Bearer <JWT_TOKEN>"
+```
+
 ---
 
 ### `GET /api/books/{id}`
@@ -141,6 +147,15 @@ Creates a new book record.
   "message": "Book created successfully",
   "id": 2
 }
+```
+
+**CURL**
+```bash
+curl -X POST http://54.191.5.188:8080/api/books -H "Content-Type: application/json"   -H "Authorization: Bearer <JWT_TOKEN>" -d '{
+    "title": "Book Title",
+    "author": "Book Author",
+    "description": "Book Desc"
+  }'
 ```
 
 ---
