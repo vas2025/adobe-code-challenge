@@ -22,7 +22,7 @@
 
 		// Initializing Logger
 		$logger = new Logger( 'app' );
-		$logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::DEBUG));
+		$logger->pushHandler( new StreamHandler( __DIR__ . '/../logs/app.log' , Logger::DEBUG ) );
 		
 		// CORS Middleware
 		$app->add( function ( $request , $handler ) {
@@ -77,8 +77,8 @@
 		$app->post( '/api/auth/login',    [ $authController , 'login' ] );
 		
 		// CRUD routes
-		$booksController = new BooksController( $connection );
-		$jwtMiddleware   = new JwtMiddleware($_ENV['JWT_SECRET']);
+		$booksController = new BooksController( $connection , logger );
+		$jwtMiddleware   = new JwtMiddleware( $_ENV['JWT_SECRET' ] );
 
 		$app->group( '/api/books' , function ( RouteCollectorProxy $group ) use ( $booksController ) {
 			$group->get(    ''      , [ $booksController , 'list'   ] );
