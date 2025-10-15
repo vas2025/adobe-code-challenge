@@ -82,8 +82,9 @@ http-client.private.env.json
 .idea/.cache/.Apifox_Helper
 .idea/ApifoxUploaderProjectSetting.xml
 # Logs
-logs
+logs/*
 *.log
+!logs/.gitkeep
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

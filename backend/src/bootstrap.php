@@ -78,7 +78,7 @@
 		
 		// CRUD routes
 		$booksController = new BooksController( $connection , $logger );
-		$jwtMiddleware   = new JwtMiddleware( $_ENV['JWT_SECRET' ] );
+		$jwtMiddleware   = new JwtMiddleware( $_ENV[ 'JWT_SECRET' ] );
 
 		$app->group( '/api/books' , function ( RouteCollectorProxy $group ) use ( $booksController ) {
 			$group->get(    ''      , [ $booksController , 'list'   ] );
