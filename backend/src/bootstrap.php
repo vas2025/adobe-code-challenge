@@ -110,7 +110,7 @@
 		});
 
 		// 404 fallback handler
-		$app->map( [ 'GET' , 'POST' , 'PUT' , 'DELETE' , 'PATCH' , 'OPTIONS' ] , '/{routes:.+}' , function ( $request , $response ) {
+		$app->map( [ 'GET' , 'POST' , 'PUT' , 'DELETE' , 'PATCH' ] , '/{routes:.+}' , function ( $request , $response ) {
 			$response->getBody()->write(
 				json_encode([
 					'error'   => 'Not found',
