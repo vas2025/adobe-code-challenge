@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_NAME: "{{ .Values.postgres.db }}"
+  DB_USER: "{{ .Values.postgres.user }}"
+  DB_PASS: "{{ .Values.postgres.password }}"
+  DB_DRIVER: "pdo_pgsql"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "{{ .Values.redis.port | quote }}"
+  JWT_SECRET: "supersecret"

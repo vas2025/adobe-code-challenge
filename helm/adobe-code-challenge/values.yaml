@@ -1,0 +1,17 @@
+backend:
+  image: adobe-code-challenge-php
+  tag: latest
+  port: 8080
+
+frontend:
+  image: adobe-code-challenge-frontend
+  tag: latest
+  port: 80
+
+postgres:
+  user: postgres
+  password: postgres
+  db: adobe
+
+redis:
+  port: 6379

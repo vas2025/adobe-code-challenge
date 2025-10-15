@@ -1,0 +1,5 @@
+apiVersion: v2
+name: adobe-code-challenge
+description: Helm chart for Adobe Code Challenge (Backend + Frontend + DB + Redis)
+version: 0.1.0
+appVersion: "1.0"
