@@ -103,7 +103,9 @@ Authorization: Bearer <JWT_TOKEN>
 
 **CURL**
 ```bash
-curl -X GET http://54.191.5.188:8080/api/books -H "Content-Type: application/json"   -H "Authorization: Bearer <JWT_TOKEN>"
+curl -X GET http://54.191.5.188:8080/api/books /
+	-H "Content-Type: application/json" /
+	-H "Authorization: Bearer <JWT_TOKEN>"
 ```
 
 ---
@@ -151,11 +153,13 @@ Creates a new book record.
 
 **CURL**
 ```bash
-curl -X POST http://54.191.5.188:8080/api/books -H "Content-Type: application/json"   -H "Authorization: Bearer <JWT_TOKEN>" -d '{
-    "title": "Book Title",
-    "author": "Book Author",
-    "description": "Book Desc"
-  }'
+curl -X POST http://54.191.5.188:8080/api/books /
+	-H "Content-Type: application/json" /
+	-H "Authorization: Bearer <JWT_TOKEN>" -d '{
+		"title": "Book Title",
+		"author": "Book Author",
+		"description": "Book Desc"
+	}'
 ```
 
 ---
