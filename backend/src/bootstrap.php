@@ -47,8 +47,13 @@
 			'port' => $_ENV[ 'REDIS_PORT' ] ?? 6379,
 		]);
 
+		// Read rate limiter params from environment of fallback to defaults
+		$rateLimitMax    = isset( $_ENV[ 'RATE_LIMIT_MAX' ] ) ? (int) $_ENV[ 'RATE_LIMIT_MAX' ] : 100;
+		$rateLimitWindow = isset( $_ENV[ 'RATE_LIMIT_WINDOW' ] ) ? (int) $_ENV[ 'RATE_LIMIT_WINDOW' ] : 60;
+		$jwtSecret       = $_ENV['JWT_SECRET'] ?? null;
+
 		// Adding rate limiter globally for all requests
-		$app->add( new RateLimitMiddleware( $redis , 100 , 60 , $_ENV[ 'JWT_SECRET' ] ) );
+		$app->add( new RateLimitMiddleware( $redis , $rateLimitMax , $rateLimitWindow , $jwtSecret ) );
 	
 		// Middleware for JSON
 		$app->addBodyParsingMiddleware();

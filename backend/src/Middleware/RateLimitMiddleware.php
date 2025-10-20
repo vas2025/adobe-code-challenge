@@ -17,7 +17,7 @@
 		private int $window; // in seconds
 		private ?string $jwtSecret;
 
-		public function __construct(Client $redis, int $limit = 100, int $window = 60 , ?string $jwtSecret = null )
+		public function __construct( Client $redis , int $limit = 100 , int $window = 60 , ?string $jwtSecret = null )
 		{
 			$this->redis  = $redis;
 			$this->limit  = $limit;
